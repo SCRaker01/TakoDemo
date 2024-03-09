@@ -39,7 +39,7 @@ export class GameManager extends Component {
     generateObstacle(){
         let obs1 = this.getGroupObstacle(); 
         obs1.setParent(this.node);
-        obs1.getComponent(GroupObstacle).setHeight(randomRangeInt(2,4),this.baseY,this.poolObstacle);
+        obs1.getComponent(GroupObstacle).setHeight(randomRangeInt(2,6),this.baseY,this.poolObstacle);
         this.listObstacleActive.push(obs1);
      
     }
@@ -64,7 +64,7 @@ export class GameManager extends Component {
                         this.player.cutPlayer(obsHeight,obstacle);
                     }else{
                         this.player.gameOver();
-                        this.scheduleOnce(alert("game over"),5);
+                        this.scheduleOnce(alert("game over"),1);
                     }
                 }
             }
