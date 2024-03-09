@@ -1,4 +1,4 @@
-import { _decorator, Component, instantiate, Node, Prefab, randomRangeInt } from 'cc';
+import { _decorator, Component, director, instantiate, Node, Prefab, randomRangeInt } from 'cc';
 import { GroupObstacle } from './GroupObstacle';
 import { Player } from './Player';
 const { ccclass, property } = _decorator;
@@ -64,7 +64,12 @@ export class GameManager extends Component {
                         this.player.cutPlayer(obsHeight,obstacle);
                     }else{
                         this.player.gameOver();
-                        this.scheduleOnce(alert("game over"),1);
+                        // this.scheduleOnce(alert("game over"),1);
+                        this.player.dead();
+                        this.scheduleOnce(()=>{
+                            alert("game over");
+                            director.pause();
+                        },1);
                     }
                 }
             }

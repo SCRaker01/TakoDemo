@@ -85,7 +85,7 @@ export class Player extends Component {
                 this.node.setPosition(new Vec3(0,curPosition.y+0.5+(2*this.jumpForce),0));
             } 
             else{
-                this.node.setPosition(new Vec3(0,curPosition.y+0.5+(0.5*this.jumpForce),0));
+                this.node.setPosition(new Vec3(0,curPosition.y+0.5+(0.33*this.jumpForce),0));
             }
             if(curPosition.y>308){
                 this.node.setPosition(new Vec3(0,308,0));
@@ -125,6 +125,10 @@ export class Player extends Component {
         this.playerAnim.play("playerJump");
         this.isJumping = true;
 
+    }
+
+    dead(){
+        this.playerAnim.play("playerDead");
     }
 }
 

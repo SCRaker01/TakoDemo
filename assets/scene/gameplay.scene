@@ -532,6 +532,10 @@
       {
         "__uuid__": "a01b148d-d242-43b1-8ea7-2e95d5ec7855",
         "__expectedType__": "cc.AnimationClip"
+      },
+      {
+        "__uuid__": "94c154c2-7d48-40ec-b191-cfa4cd985ea5",
+        "__expectedType__": "cc.AnimationClip"
       }
     ],
     "_defaultClip": {
@@ -567,7 +571,7 @@
     "value": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": 0,
+      "y": -280,
       "z": 0
     }
   },
