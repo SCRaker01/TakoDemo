@@ -12,6 +12,7 @@ export class GroupObstacle extends Component {
 
     setHeight(height:number, baseY:number,poolObstacle){
         this.height = height;
+        
         for(let i=0;i<height;i++){
             let obs;
             if(poolObstacle.length>0){
@@ -25,6 +26,23 @@ export class GroupObstacle extends Component {
         }
         this.node.setPosition(new Vec3(192,baseY,0));
     }
+
+    setUpperHeight(height:number, baseY:number,poolObstacle){
+        this.height = height;
+        for(let i=0;i<height;i++){
+            let obs;
+            if(poolObstacle.length>0){
+                obs = poolObstacle.shift();
+            }else{
+                obs =instantiate(this.prefabObstacle);
+            }
+            obs.setParent(this.node);
+            // obs.setImage()
+            obs.setPosition(new Vec3(0,baseY-(i*49),0));
+        }
+        this.node.setPosition(new Vec3(192,baseY,0));
+    }
+
     isHaveCutHeight():boolean{
         return this.haveCutHeight;
     }

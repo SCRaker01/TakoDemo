@@ -10,6 +10,7 @@ export class GameManager extends Component {
     @property({type: Node})playerNode:Node;
     @property({type: Prefab})groupObstacle:Prefab;
     private baseY:number = 0;
+    private upperY:number = 0;
 
     private listObstacleActive:Node[] = [];
     private player:Player;
@@ -18,6 +19,7 @@ export class GameManager extends Component {
 
     start() {
         this.baseY = this.ground.getPosition().y+40;
+        this.upperY = 310;
         
         this.player = this.playerNode.getComponent(Player);
         setInterval(()=>{
@@ -35,13 +37,15 @@ export class GameManager extends Component {
     }
 
     generateObstacle(){
-        let obs1 = this.getGroupObstacle();
+        let obs1 = this.getGroupObstacle(); 
         obs1.setParent(this.node);
         obs1.getComponent(GroupObstacle).setHeight(randomRangeInt(2,4),this.baseY,this.poolObstacle);
         this.listObstacleActive.push(obs1);
+     
     }
-
+    
     update(deltaTime: number) {
+        // console.log(this.listObstacleActive);
         for(let i=0;i<this.listObstacleActive.length;i++){
             let obstacle = this.listObstacleActive[i];
             let groupObstacle = obstacle.getComponent(GroupObstacle);
@@ -60,6 +64,7 @@ export class GameManager extends Component {
                         this.player.cutPlayer(obsHeight,obstacle);
                     }else{
                         this.player.gameOver();
+                        this.scheduleOnce(alert("game over"),5);
                     }
                 }
             }
@@ -69,7 +74,7 @@ export class GameManager extends Component {
         }
         for(let j=this.listObstacleActive.length-1;j>=0;j--){
             // console.log("cek: j: "+j+" "+this.listObstacleActive[j].active)
-            
+
             if(this.listObstacleActive[j].active==false){
                 let toRemove = this.listObstacleActive[j];
                 this.listObstacleActive.splice(j,1);
@@ -78,6 +83,7 @@ export class GameManager extends Component {
                         this.poolObstacle.push(toRemove.children[i]);
                     }else{
                         //kode buat pool block player
+                        
                     }
                     
                 }

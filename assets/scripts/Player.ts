@@ -1,4 +1,4 @@
-import { _decorator, CCFloat, Component, Input, input, instantiate, Node, Prefab, Vec3 } from 'cc';
+import { _decorator, CCFloat, Component, game, Input, input, instantiate, Node, Prefab, Vec3, Animation } from 'cc';
 const { ccclass, property } = _decorator;
 
 @ccclass('Player')
@@ -12,12 +12,16 @@ export class Player extends Component {
     private baseY:number = 0;
     private hBlock = 49;
     private height:number = 0;
+    private isJumping:boolean=false;
 
     private listBlock:Node[] = [];
+
+    private playerAnim:Animation;
 
     start() {
         this.baseY = this.ground.getPosition().y+40;
         input.on(Input.EventType.TOUCH_START,this.spawnBlock,this);
+        this.playerAnim = this.node.getComponent(Animation);
     }
 
     spawnBlock(){
@@ -28,7 +32,12 @@ export class Player extends Component {
             // this.baseY += this.hBlock;
             this.height++;
             this.listBlock.push(nodeBlock);
-
+            this.jump();
+            this.scheduleOnce(() => {
+                this.run();
+                this.isJumping = false;
+            },1.08);
+          
         }
     }
 
@@ -65,6 +74,11 @@ export class Player extends Component {
             count++;
         }
         this.node.setPosition(curPosition);
+
+        if(this.isJumping){
+            curPosition = this.node.getPosition();
+            this.node.setPosition(new Vec3(0,curPosition.x+(this.vy),0))
+        }
     }
 
     getHeight(){
@@ -72,7 +86,20 @@ export class Player extends Component {
     }
 
     gameOver(){
+        for (let i =0 ;i < 2; i++){
+            this.node.setPosition(new Vec3(this.node.getPosition().x-i, this.node.getPosition().y+i,0));
+           
+        }
         
+    }
+
+    run(){
+        this.playerAnim.play("playerRun");
+    }
+    jump(){
+        this.playerAnim.play("playerJump");
+        this.isJumping = true;
+
     }
 }
 
