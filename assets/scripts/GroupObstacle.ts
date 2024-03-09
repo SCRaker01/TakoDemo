@@ -1,4 +1,4 @@
-import { _decorator, Component, instantiate, Node, Prefab, randomRangeInt, Vec3 } from 'cc';
+import { _decorator, Component, instantiate, Node, Prefab, Vec3 } from 'cc';
 const { ccclass, property } = _decorator;
 
 @ccclass('GroupObstacle')
@@ -10,22 +10,21 @@ export class GroupObstacle extends Component {
     private haveCheckCollision:boolean = false;
     private haveCutHeight:boolean = false;
 
-    setHeight(height:number, baseY:number){
+    setHeight(height:number, baseY:number,poolObstacle){
         this.height = height;
         for(let i=0;i<height;i++){
-            let obs =instantiate(this.prefabObstacle);
-            
+            let obs;
+            if(poolObstacle.length>0){
+                obs = poolObstacle.shift();
+            }else{
+                obs =instantiate(this.prefabObstacle);
+            }
             obs.setParent(this.node);
+            // obs.setImage()
             obs.setPosition(new Vec3(0,i*49,0));
-            
-            
         }
         this.node.setPosition(new Vec3(192,baseY,0));
-        
-        this.node.destroy();
     }
-
-
     isHaveCutHeight():boolean{
         return this.haveCutHeight;
     }
@@ -50,7 +49,6 @@ export class GroupObstacle extends Component {
     }
 
     update(deltaTime: number) {
-        this.node.translate(new Vec3(-50*deltaTime,0,0));
+        this.node.translate(new Vec3(-250*deltaTime,0,0));
     }
 }
-

@@ -72,7 +72,7 @@ export class Player extends Component {
     }
 
     gameOver(){
-        alert('game over');
+        
     }
 }
 
