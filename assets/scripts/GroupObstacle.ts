@@ -1,4 +1,5 @@
-import { _decorator, Component, instantiate, Node, Prefab, Vec3 } from 'cc';
+import { _decorator, Component, find, instantiate, Node, Prefab, Vec3 } from 'cc';
+import { GameManager } from './GameManager';
 const { ccclass, property } = _decorator;
 
 @ccclass('GroupObstacle')
@@ -9,6 +10,7 @@ export class GroupObstacle extends Component {
     private height:number;
     private haveCheckCollision:boolean = false;
     private haveCutHeight:boolean = false;
+    private gameManager:GameManager;
 
     setHeight(height:number, baseY:number,poolObstacle){
         this.height = height;
@@ -62,11 +64,18 @@ export class GroupObstacle extends Component {
         this.haveCheckCollision = value;
     }
 
-    start() {
+    setDeadCondition(value: boolean){
+        // this.isPlayerDead = value;
+    }
 
+    start() {
+        
     }
 
     update(deltaTime: number) {
-        this.node.translate(new Vec3(-250*deltaTime,0,0));
+        // if(!this.isPlayerDead) {
+            this.node.translate(new Vec3(-250*deltaTime,0,0));
+
+        // }
     }
 }

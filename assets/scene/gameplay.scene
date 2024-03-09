@@ -23,7 +23,7 @@
     "_active": true,
     "_components": [],
     "_prefab": {
-      "__id__": 53
+      "__id__": 54
     },
     "_lpos": {
       "__type__": "cc.Vec3",
@@ -54,7 +54,7 @@
     },
     "autoReleaseAssets": false,
     "_globals": {
-      "__id__": 54
+      "__id__": 55
     },
     "_id": "95d70f36-4b0f-404b-bd8a-8b22ee6ec74e"
   },
@@ -80,14 +80,11 @@
         "__id__": 18
       },
       {
-        "__id__": 45
+        "__id__": 46
       }
     ],
     "_active": true,
     "_components": [
-      {
-        "__id__": 49
-      },
       {
         "__id__": 50
       },
@@ -96,6 +93,9 @@
       },
       {
         "__id__": 52
+      },
+      {
+        "__id__": 53
       }
     ],
     "_prefab": null,
@@ -488,6 +488,9 @@
       },
       {
         "__id__": 44
+      },
+      {
+        "__id__": 45
       }
     ],
     "removedComponents": []
@@ -752,6 +755,16 @@
     "value": 3
   },
   {
+    "__type__": "CCPropertyOverrideInfo",
+    "targetInfo": {
+      "__id__": 37
+    },
+    "propertyPath": [
+      "isDead"
+    ],
+    "value": false
+  },
+  {
     "__type__": "cc.Node",
     "_name": "endScreen",
     "_objFlags": 0,
@@ -761,13 +774,13 @@
     },
     "_children": [
       {
-        "__id__": 46
+        "__id__": 47
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 48
+        "__id__": 49
       }
     ],
     "_prefab": null,
@@ -806,13 +819,13 @@
     "_objFlags": 0,
     "__editorExtras__": {},
     "_parent": {
-      "__id__": 45
+      "__id__": 46
     },
     "_children": [],
     "_active": true,
     "_components": [
       {
-        "__id__": 47
+        "__id__": 48
       }
     ],
     "_prefab": null,
@@ -851,7 +864,7 @@
     "_objFlags": 0,
     "__editorExtras__": {},
     "node": {
-      "__id__": 46
+      "__id__": 47
     },
     "_enabled": true,
     "__prefab": null,
@@ -873,7 +886,7 @@
     "_objFlags": 0,
     "__editorExtras__": {},
     "node": {
-      "__id__": 45
+      "__id__": 46
     },
     "_enabled": true,
     "__prefab": null,
@@ -998,25 +1011,25 @@
   {
     "__type__": "cc.SceneGlobals",
     "ambient": {
-      "__id__": 55
-    },
-    "shadows": {
       "__id__": 56
     },
-    "_skybox": {
+    "shadows": {
       "__id__": 57
     },
-    "fog": {
+    "_skybox": {
       "__id__": 58
     },
-    "octree": {
+    "fog": {
       "__id__": 59
     },
-    "skin": {
+    "octree": {
       "__id__": 60
     },
-    "lightProbeInfo": {
+    "skin": {
       "__id__": 61
+    },
+    "lightProbeInfo": {
+      "__id__": 62
     },
     "bakedWithStationaryMainLight": false,
     "bakedWithHighpLightmap": false

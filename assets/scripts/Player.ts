@@ -8,16 +8,18 @@ export class Player extends Component {
     @property({type: CCFloat})jumpForce:number;
     @property({type: Node})ground:Node;
     @property({type: Prefab})prefabBlock:Prefab;
+    @property({type: Boolean}) public isDead:Boolean;
 
     private vy:number = 0;
     private baseY:number = 0;
     private hBlock = 49;
     private height:number = 0;
     private isJumping:boolean;
-
+    
     private listBlock:Node[] = [];
     private tempJump;
     private tempPlayer;
+
     private playerAnim:Animation;
 
     start() {
@@ -26,8 +28,9 @@ export class Player extends Component {
         this.playerAnim = this.node.getComponent(Animation);
         this.isJumping=false;
         this.tempJump = this.jumpForce;
-
+        
     }
+
 
     spawnBlock(){
         if (this.node.getPosition().y <308) {
@@ -80,14 +83,14 @@ export class Player extends Component {
             this.tempPlayer = this.node.getPosition().y;     //Balikin tempPlayer ke nilai semula
         }else {
             let curPosition = this.node.getPosition();
-            // this.jumpForce -= this.tempJump*deltaTime;   
+            
             if (curPosition.y<=this.baseY + (this.height*this.hBlock)){                         //Naikkan terus menerus ketika masih melompat dan dibawah blok
                 this.node.setPosition(new Vec3(0,curPosition.y+0.5+(2*this.jumpForce),0));
             } 
-            else{
+            else{                                                                                   //Lompat normal
                 this.node.setPosition(new Vec3(0,curPosition.y+0.5+(0.33*this.jumpForce),0));
             }
-            if(curPosition.y>308){
+            if(curPosition.y>308){                                                                  //Ketika spam klik spawnBlock dan position masih dibawah 308, bisa tembus langit jika tidak
                 this.node.setPosition(new Vec3(0,308,0));
             }
             console.log(this.node.getPosition().y);
@@ -113,9 +116,7 @@ export class Player extends Component {
         return this.height;
     }
 
-    gameOver(){
-        
-    }
+    
 
     run(){
         this.playerAnim.play("playerRun");
@@ -129,6 +130,9 @@ export class Player extends Component {
 
     dead(){
         this.playerAnim.play("playerDead");
+        this.scheduleOnce(()=>{
+            alert("game over");
+        },1);
     }
 }
 
