@@ -148,7 +148,10 @@
       "__id__": 7
     },
     "gravity": 100,
-    "ground": null,
+    "jumpForce": 3,
+    "ground": {
+      "__id__": 1
+    },
     "prefabBlock": {
       "__uuid__": "8b59c1d2-6cbc-43c1-9653-73b41009240c",
       "__expectedType__": "cc.Prefab"

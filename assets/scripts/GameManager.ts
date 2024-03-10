@@ -72,7 +72,7 @@ export class GameManager extends Component {
                         }
                     }
                 }
-                if(obstacle.position.x<=-192){
+                if(obstacle.position.x<=-192-43){
                     this.listObstacleActive[i].active = false;
                 }
 
@@ -101,9 +101,6 @@ export class GameManager extends Component {
 
     gameOver(){
         this.player.dead();
-        this.getComponent(GroupObstacle).setDeadCondition(true);
-
-
-
+        // this.getComponent(GroupObstacle).setDeadCondition(true);
     }
 }

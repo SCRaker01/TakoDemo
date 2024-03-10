@@ -1,4 +1,4 @@
-import { _decorator, CCFloat, Component, game, Input, input, instantiate, Node, Prefab, Vec3, Animation, randomRangeInt, Scheduler } from 'cc';
+import { _decorator, CCFloat, Component, game, Input, input, instantiate, Node, Prefab, Vec3, Animation, randomRangeInt, Scheduler, director } from 'cc';
 const { ccclass, property } = _decorator;
 
 @ccclass('Player')
@@ -8,7 +8,6 @@ export class Player extends Component {
     @property({type: CCFloat})jumpForce:number;
     @property({type: Node})ground:Node;
     @property({type: Prefab})prefabBlock:Prefab;
-    @property({type: Boolean}) public isDead:Boolean;
 
     private vy:number = 0;
     private baseY:number = 0;
@@ -18,9 +17,9 @@ export class Player extends Component {
     
     private listBlock:Node[] = [];
     private tempJump;
-    private tempPlayer;
-
+  
     private playerAnim:Animation;
+    private playDead:boolean;
 
     start() {
         this.baseY = this.ground.getPosition().y+40;
@@ -28,12 +27,12 @@ export class Player extends Component {
         this.playerAnim = this.node.getComponent(Animation);
         this.isJumping=false;
         this.tempJump = this.jumpForce;
-        
+        this.playDead = false;
     }
 
 
     spawnBlock(){
-        if (this.node.getPosition().y <308) {
+        if (this.node.getPosition().y <308 && !this.playDead) {
             
             let nodeBlock = instantiate(this.prefabBlock);
             nodeBlock.setParent(this.node.parent);
@@ -80,7 +79,7 @@ export class Player extends Component {
             }
             this.node.setPosition(curPosition);
             this.jumpForce = this.tempJump;                 //Balikin jumpForce ke nilai semula
-            this.tempPlayer = this.node.getPosition().y;     //Balikin tempPlayer ke nilai semula
+            // this.tempPlayer = this.node.getPosition().y;     //Balikin tempPlayer ke nilai semula
         }else {
             let curPosition = this.node.getPosition();
             
@@ -88,7 +87,7 @@ export class Player extends Component {
                 this.node.setPosition(new Vec3(0,curPosition.y+0.5+(2*this.jumpForce),0));
             } 
             else{                                                                                   //Lompat normal
-                this.node.setPosition(new Vec3(0,curPosition.y+0.5+(0.33*this.jumpForce),0));
+                this.node.setPosition(new Vec3(0,curPosition.y+0.33+(0.22*this.jumpForce),0));
             }
             if(curPosition.y>308){                                                                  //Ketika spam klik spawnBlock dan position masih dibawah 308, bisa tembus langit jika tidak
                 this.node.setPosition(new Vec3(0,308,0));
@@ -96,6 +95,7 @@ export class Player extends Component {
             console.log(this.node.getPosition().y);
             
         }
+
         let count = 0;
         for(let i=this.listBlock.length-1;i>=0;i--){
             let block = this.listBlock[i];
@@ -130,8 +130,13 @@ export class Player extends Component {
 
     dead(){
         this.playerAnim.play("playerDead");
+        this.playDead = true;
+        for(let i=0; i<this.height; i++){
+            this.listBlock[i].getComponent(Animation).play("blockDestroy");
+        }
         this.scheduleOnce(()=>{
-            alert("game over");
+            // alert("game over");
+            director.pause();
         },1);
     }
 }
